@@ -265,8 +265,10 @@ class rhcs (
 
   $service_rgmanager = 'rgmanager'
   $process_rgmanager = 'rgmanager'
+  $pid_file_rgmanager = '/var/run/rgmanager.pid'
   $service_ricci = 'ricci'
   $process_ricci = 'ricci'
+  $pid_file_ricci = '/var/run/ricci.pid'
 
   ### Definition of some variables used in the module
   $manage_package = $rhcs::bool_absent ? {
@@ -453,6 +455,7 @@ class rhcs (
       monitor::process { 'cman':
         process  => $rhcs::process,
         service  => $rhcs::service,
+        pidfile  => $rhcs::pid_file,
         user     => $rhcs::process_user,
         argument => $rhcs::process_args,
         tool     => $rhcs::monitor_tool,
@@ -462,6 +465,7 @@ class rhcs (
       monitor::process { 'rgmanager':
         process  => $rhcs::process_rgmanager,
         service  => $rhcs::service_rgmanager,
+        pidfile  => $rhcs::pid_file_rgmanager,
         user     => $rhcs::process_user,
         argument => $rhcs::process_args,
         tool     => $rhcs::monitor_tool,
@@ -471,7 +475,8 @@ class rhcs (
       monitor::process { 'ricci':
         process  => $rhcs::process_ricci,
         service  => $rhcs::service_ricci,
-        user     => $rhcs::process_user,
+        pidfile  => $rhcs::pid_file_ricci,
+        user     => 'ricci',
         argument => $rhcs::process_args,
         tool     => $rhcs::monitor_tool,
         enable   => $rhcs::manage_monitor,

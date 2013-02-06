@@ -20,7 +20,7 @@ For detailed info about the logic and usage patterns of Example42 modules check 
 * Install rhcs and set ricci's (hashed) password
 
         class { 'rhcs':
-          password => '$1$am6eJ020$owCyQGVLLcHwbrzkDcOvN.',
+          ricci_password => '$1$am6eJ020$owCyQGVLLcHwbrzkDcOvN.',
         }
 
 Note: The module installs and manager Cman, Rgmanager and Ricci.
