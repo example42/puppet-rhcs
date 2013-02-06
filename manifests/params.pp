@@ -23,7 +23,7 @@ class rhcs::params {
   }
 
   $service = $::operatingsystem ? {
-    default => [ 'cman' , 'rgmanager' , 'ricci' ],
+    default => 'cman',
   }
 
   $service_status = $::operatingsystem ? {
