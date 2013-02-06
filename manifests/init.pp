@@ -350,6 +350,7 @@ class rhcs (
     ensure   => $rhcs::manage_package,
     password => $rhcs::ricci_password,
     require  => Package[$rhcs::package],
+    noop     => $rhcs::bool_noops,
   }
 
   service { 'cman':
@@ -368,7 +369,7 @@ class rhcs (
     enable     => $rhcs::manage_service_enable,
     hasstatus  => $rhcs::service_status,
     pattern    => $rhcs::process_rgmanager,
-    require    => Package[$rhcs::package],
+    require    => [ Package[$rhcs::package] , Service['cman'] ],
     noop       => $rhcs::bool_noops,
   }
 
