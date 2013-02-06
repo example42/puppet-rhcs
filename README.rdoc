@@ -15,6 +15,19 @@ This module requires functions provided by the Example42 Puppi module (you need 
 For detailed info about the logic and usage patterns of Example42 modules check the DOCS directory on Example42 main modules set.
 
 
+== USAGE - Modules specific parameters
+
+* Install rhcs and set ricci's (hashed) password
+
+        class { 'rhcs':
+          password => '$1$am6eJ020$owCyQGVLLcHwbrzkDcOvN.',
+        }
+
+Note: The module installs and manager Cman, Rgmanager and Ricci.
+If you decide to manage the cluster configuration the the Luci web interface you should not provide it via the source or template parameters.
+If you decide to manage the configuration with Puppet, note that (by default) a syntax check is done and a cman_tool update is triggered.
+Set service_autorestart => false to avoid automatic configuration of the cluster config file.
+
 == USAGE - Basic management
 
 * Install rhcs with default settings

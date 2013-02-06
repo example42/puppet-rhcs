@@ -5,6 +5,11 @@
 #
 # == Parameters
 #
+# [*ricci_password*]
+#   Password for ricci user (used in Luci web interface).
+#   Note: It must be provided the hash, as present in /etc/shadow
+#   Default: 'ricci'.
+#
 # Standard class parameters
 # Define the general class behaviour and customizations
 #
@@ -337,6 +342,12 @@ class rhcs (
   package { $rhcs::package:
     ensure  => $rhcs::manage_package,
     noop    => $rhcs::bool_noops,
+  }
+
+  user { 'ricci':
+    ensure   => $rhcs::manage_package,
+    password => $rhcs::ricci_password,
+    require  => Package[$rhcs::package],
   }
 
   service { 'cman':

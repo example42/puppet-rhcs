@@ -14,6 +14,8 @@
 #
 class rhcs::params {
 
+  $ricci_password = '$1$am6eJ020$owCyQGVLLcHwbrzkDcOvN.'
+
   ### Application related parameters
 
   $package = $::operatingsystem ? {
