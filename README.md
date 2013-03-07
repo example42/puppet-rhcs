@@ -1,4 +1,4 @@
-= Puppet module: rhcs
+# Puppet module: rhcs
 
 This is a Puppet module for RedHat Cluster Suite based on the second generation layout ("NextGen") of Example42 Puppet Modules.
 
@@ -15,7 +15,7 @@ This module requires functions provided by the Example42 Puppi module (you need 
 For detailed info about the logic and usage patterns of Example42 modules check the DOCS directory on Example42 main modules set.
 
 
-== USAGE - Modules specific parameters
+## USAGE - Modules specific parameters
 
 * Install rhcs and set ricci's (hashed) password
 
@@ -28,7 +28,7 @@ If you decide to manage the cluster configuration the the Luci web interface you
 If you decide to manage the configuration with Puppet, note that (by default) a syntax check is done and a cman_tool update is triggered.
 Set service_autorestart => false to avoid automatic configuration of the cluster config file.
 
-== USAGE - Basic management
+## USAGE - Basic management
 
 * Install rhcs with default settings
 
@@ -59,7 +59,7 @@ Set service_autorestart => false to avoid automatic configuration of the cluster
         }
 
 
-== USAGE - Overrides and Customizations
+## USAGE - Overrides and Customizations
 * Use custom sources for main config file 
 
         class { 'rhcs':
@@ -87,7 +87,7 @@ Set service_autorestart => false to avoid automatic configuration of the cluster
         }
 
 
-== USAGE - Example42 extensions management 
+## USAGE - Example42 extensions management 
 * Activate puppi (recommended, but disabled by default)
 
         class { 'rhcs':
@@ -118,6 +118,6 @@ Set service_autorestart => false to avoid automatic configuration of the cluster
         }
 
 
-== CONTINUOUS TESTING
+## CONTINUOUS TESTING
 
 Travis {<img src="https://travis-ci.org/example42/puppet-rhcs.png?branch=master" alt="Build Status" />}[https://travis-ci.org/example42/puppet-rhcs]
