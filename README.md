@@ -118,6 +118,5 @@ Set service_autorestart => false to avoid automatic configuration of the cluster
         }
 
 
-## CONTINUOUS TESTING
 
-Travis {<img src="https://travis-ci.org/example42/puppet-rhcs.png?branch=master" alt="Build Status" />}[https://travis-ci.org/example42/puppet-rhcs]
+[![Build Status](https://travis-ci.org/example42/puppet-rhcs.png?branch=master)](https://travis-ci.org/example42/puppet-rhcs)
