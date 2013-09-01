@@ -127,7 +127,7 @@
 # [*noops*]
 #   Set noop metaparameter to true for all the resources managed by the module.
 #   Basically you can run a dryrun for this specific module if you set
-#   this to true. Default: false
+#   this to true. Default: undef
 #
 # Default class params - As defined in rhcs::params.
 # Note that these variables are mostly defined and used in the module itself,
@@ -261,7 +261,6 @@ class rhcs (
   $bool_firewall=any2bool($firewall)
   $bool_debug=any2bool($debug)
   $bool_audit_only=any2bool($audit_only)
-  $bool_noops=any2bool($noops)
 
   $service_rgmanager = 'rgmanager'
   $process_rgmanager = 'rgmanager'
@@ -343,14 +342,14 @@ class rhcs (
   ### Managed resources
   package { $rhcs::package:
     ensure  => $rhcs::manage_package,
-    noop    => $rhcs::bool_noops,
+    noop    => $rhcs::noops,
   }
 
   user { 'ricci':
     ensure   => $rhcs::manage_package,
     password => $rhcs::ricci_password,
     require  => Package[$rhcs::package],
-    noop     => $rhcs::bool_noops,
+    noop     => $rhcs::noops,
   }
 
   service { 'cman':
@@ -360,7 +359,7 @@ class rhcs (
     hasstatus  => $rhcs::service_status,
     pattern    => $rhcs::process,
     require    => Package[$rhcs::package],
-    noop       => $rhcs::bool_noops,
+    noop       => $rhcs::noops,
   }
 
   service { 'rgmanager':
@@ -370,7 +369,7 @@ class rhcs (
     hasstatus  => $rhcs::service_status,
     pattern    => $rhcs::process_rgmanager,
     require    => [ Package[$rhcs::package] , Service['cman'] ],
-    noop       => $rhcs::bool_noops,
+    noop       => $rhcs::noops,
   }
 
   service { 'ricci':
@@ -380,7 +379,7 @@ class rhcs (
     hasstatus  => $rhcs::service_status,
     pattern    => $rhcs::process_ricci,
     require    => Package[$rhcs::package],
-    noop       => $rhcs::bool_noops,
+    noop       => $rhcs::noops,
   }
 
   file { 'rhcs.conf':
@@ -395,7 +394,7 @@ class rhcs (
     content => $rhcs::manage_file_content,
     replace => $rhcs::manage_file_replace,
     audit   => $rhcs::manage_audit,
-    noop    => $rhcs::bool_noops,
+    noop    => $rhcs::noops,
   }
 
   # The whole rhcs configuration directory can be recursively overriden
@@ -411,7 +410,7 @@ class rhcs (
       force   => $rhcs::bool_source_dir_purge,
       replace => $rhcs::manage_file_replace,
       audit   => $rhcs::manage_audit,
-      noop    => $rhcs::bool_noops,
+      noop    => $rhcs::noops,
     }
   }
 
@@ -435,7 +434,7 @@ class rhcs (
       ensure    => $rhcs::manage_file,
       variables => $classvars,
       helper    => $rhcs::puppi_helper,
-      noop      => $rhcs::bool_noops,
+      noop      => $rhcs::noops,
     }
   }
 
@@ -449,7 +448,7 @@ class rhcs (
         target   => $rhcs::monitor_target,
         tool     => $rhcs::monitor_tool,
         enable   => $rhcs::manage_monitor,
-        noop     => $rhcs::bool_noops,
+        noop     => $rhcs::noops,
       }
     }
     if $rhcs::service != '' {
@@ -461,7 +460,7 @@ class rhcs (
         argument => $rhcs::process_args,
         tool     => $rhcs::monitor_tool,
         enable   => $rhcs::manage_monitor,
-        noop     => $rhcs::bool_noops,
+        noop     => $rhcs::noops,
       }
       monitor::process { 'rgmanager':
         process  => $rhcs::process_rgmanager,
@@ -471,7 +470,7 @@ class rhcs (
         argument => $rhcs::process_args,
         tool     => $rhcs::monitor_tool,
         enable   => $rhcs::manage_monitor,
-        noop     => $rhcs::bool_noops,
+        noop     => $rhcs::noops,
       }
       monitor::process { 'ricci':
         process  => $rhcs::process_ricci,
@@ -481,7 +480,7 @@ class rhcs (
         argument => $rhcs::process_args,
         tool     => $rhcs::monitor_tool,
         enable   => $rhcs::manage_monitor,
-        noop     => $rhcs::bool_noops,
+        noop     => $rhcs::noops,
       }
     }
   }
@@ -498,7 +497,7 @@ class rhcs (
       direction   => 'input',
       tool        => $rhcs::firewall_tool,
       enable      => $rhcs::manage_firewall,
-      noop        => $rhcs::bool_noops,
+      noop        => $rhcs::noops,
     }
   }
 
@@ -512,7 +511,7 @@ class rhcs (
       owner   => 'root',
       group   => 'root',
       content => inline_template('<%= scope.to_hash.reject { |k,v| k.to_s =~ /(uptime.*|path|timestamp|free|.*password.*|.*psk.*|.*key)/ }.to_yaml %>'),
-      noop    => $rhcs::bool_noops,
+      noop    => $rhcs::noops,
     }
   }
 
